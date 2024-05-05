@@ -69,6 +69,7 @@ function Login() {
   };
 
   const onloginInputChange = (e) => {
+    console.log("login: l",e.target.value)
     setlogin({ ...login, [e.target.name]: e.target.value });
   };
 
@@ -156,16 +157,17 @@ const handleRoleChange = (event) => {
         <Box className="container">
           <Box className="login">Login</Box>
           <Box className="inputs">
-            <TextField
-              id="first"
+            <input
+
+              id="login-first"
               label="Enter Email"
               variant="outlined"
               name="email"
               onChange={(e) => onloginInputChange(e)}
               value={login.email}
             />
-            <TextField
-              id="second"
+            <input
+              id="login-second"
               label="Enter Password"
               variant="outlined"
               name="password"
@@ -199,7 +201,8 @@ const handleRoleChange = (event) => {
        
       </RadioGroup>  
           <Box className="inputs-signup">
-            <TextField
+            <input
+              
               id="first"
               label="Enter Name"
               variant="outlined"
@@ -207,7 +210,7 @@ const handleRoleChange = (event) => {
               onChange={(e) => onInputChange(e)}
               value={signup.name}
             />
-            <TextField
+            <input
               id="second"
               label="Enter email"
               variant="outlined"
@@ -215,16 +218,16 @@ const handleRoleChange = (event) => {
               onChange={(e) => onInputChange(e)}
               value={signup.email}
             />
-            <TextField
-              id="first"
+            <input
+              id="third"
               label="Enter phone number"
               variant="outlined"
               name="phoneNumber"
               onChange={(e) => onInputChange(e)}
               value={signup.phoneNumber}
             />
-            <TextField
-              id="second"
+            <input
+              id="fourth"
               label="Enter Password"
               variant="outlined"
               name="password"
@@ -232,13 +235,13 @@ const handleRoleChange = (event) => {
               value={signup.password}
             />
           </Box>
-          <Button
+          <button 
             id="signup-button2"
             variant="contained"
             onClick={handleSignup}
           >
             signup
-          </Button>
+          </button>
         </Box>
       )}
     </Dialog>

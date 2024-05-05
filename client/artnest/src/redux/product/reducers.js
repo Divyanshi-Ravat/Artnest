@@ -6,12 +6,12 @@ const initialState = {
   const productReducer = (state = initialState, action) => {
     switch (action.type) {
 
-      case actionTypes.FIND_PRODUCT:
-        console.log("in reducer: "+ action.payload)
-        return {
+      case actionTypes.GET_PRODUCTS:
+        console.log("action.payload ",action.payload)
+        return{
           ...state,
-         products : action.payload
-        };
+          products: action.payload
+        }
   
       default:
         return state; // Return unchanged state for unknown actions

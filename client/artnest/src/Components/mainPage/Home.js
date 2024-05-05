@@ -1,5 +1,4 @@
 import React from "react";
-import "./home.css"
 import { Box, Button } from "@mui/material";
 import logo from "../../assets/artnest_logo.png";
 import search from "../../assets/search_icon_n.png";
@@ -12,7 +11,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { activeUser, openLoginDialog } from "../../redux/user/actions";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Banner from "../mainPage/Banner";
+import Banner from "./Banner";
+import Carousel from "./Carousel";
+import "./home.css"
+
+
 
 function Home() {
   const [open, setopen] = useState(false);
@@ -34,7 +37,7 @@ function Home() {
   };
   return (
     <>
-      <div className="navbar">
+    <div className="home-navbar">
         <div className="logo_block">
           <div className="img">
             <img src={logo} alt="artnest_logo" />
@@ -45,8 +48,8 @@ function Home() {
           <input type="text" placeholder="Search.." />
 
           <div className="category">
-            <ul class="category-list">
-              <li>Abstract Art</li>
+            <ul >
+              <li><Link to="/abstractArt" className="link" >Abstract Art</Link></li>
               <li>Modern Art</li>
               <li>Dirty Art</li>
               <li>Comtempory Art</li>
@@ -59,6 +62,7 @@ function Home() {
               <button className="login-button" onClick={() => handleLogout()}>
                 LogOut
               </button>
+              
             ) : (
               <button
                 className="login-button"
@@ -78,10 +82,21 @@ function Home() {
           <div className="cart">
             <ShoppingCartIcon style={{ background: "white" }} />
           </div>
+          <Link to="/admin">admin</Link>
         </div>
       </div>
-      <Banner/>
+   
+      <div className="carousel">
+       <Banner/> 
+      </div>
+      <div className="home-footer">
+        
+      </div>
+     
     </>
+    
+      
+   
   );
 }
 

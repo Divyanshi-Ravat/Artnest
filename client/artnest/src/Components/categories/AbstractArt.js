@@ -7,24 +7,23 @@ import Divider from '@mui/material/Divider';
 import { useSelector } from "react-redux";
 import { useEffect , useState} from "react";
 import { useDispatch } from "react-redux";
-import { getAllProducts, getProductByTitle } from "../../redux/product/actions";
+import { getAllProducts, getProductByTitle, getProducts } from "../../redux/product/actions";
 import axios from 'axios'
 //import { getProducts } from "../../redux/product/actions";
 
 
 function AbstractArt() {
-  //const products = useSelector((state)=>(state.))
-  //const products = useSelector((state) => state.product.products);
-  //console.log("product names:", products.map((product) => product.imgUrl));
-  
-  const [products, setproducts] = useState([])
-  
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.product.products)
 
-  const handle = async(e)=>{
+  const handle = (e)=>{
+    dispatch(getProducts())
+    // const response = await axios.get("http://localhost:8080/api/all/getAllProducts")
+    // console.log("result of access: ", response)
 
-    const { data } = await axios.get("http://localhost:8080/api/all/getAllProducts")
-    console.log("result of access: ", data)
-    setproducts(data);
+    console.log("products in ad", products)
+
+
 
   }
 
@@ -47,7 +46,7 @@ function AbstractArt() {
   
   return (
     <>
-      <div className="logo_block">
+      <div className="abstract-logo_block">
         <div className="img">
           <img src={logo} alt="artnest_logo" />
           <text className="dancing-script-artnest ">ArtNest</text>
@@ -63,7 +62,7 @@ function AbstractArt() {
 
       </div>
       <div className="grid">
-        {products.map(card_object)} 
+        {products.map(card_object)}  
       </div>
 
      

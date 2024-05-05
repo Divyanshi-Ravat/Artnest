@@ -1,15 +1,19 @@
 package com.artnest.artnest.config;
 
+import org.hibernate.cfg.Environment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.cloudinary.Cloudinary;
-import java.util.HashMap;
+
 import java.util.*;
 
 
 @Configuration
 public class ProjectConfig {
+
+
     
    @Bean
     public  Cloudinary getCloudinary(){

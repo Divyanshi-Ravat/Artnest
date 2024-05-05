@@ -1,0 +1,197 @@
+.home-navbar{
+    width: 100%;
+    height: 150px;
+    background-color: white;
+    display: flex;
+}
+
+.logo_block{
+  width: 25vw;
+  background-color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img{
+    width: 60%;
+    height: 70%;
+    display: flex;
+
+    background-color: inherit;
+}
+
+.logo_block text{
+  font-size: 50px;
+  background: -webkit-linear-gradient(#e95050, #ca50e9, #29dd86);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dancing-script-artnest {
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: 1000;
+    font-style: normal;
+  }
+
+.searchBar_block{
+    
+    width: 60vw;
+    background-color: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+/* .searchBar_block input{
+    margin-top: 50px;
+    margin-left: 30px;
+    width: 80%;
+    height: 10%;
+} */
+
+
+.searchBar_block input{
+    
+    margin-top: 50px;
+    font-size: large;
+    color: black;
+    width: 80%;
+    height: 20%;
+    border-radius: 10px;
+    padding-left: 30px;  /* Space for icon */
+    /* background-image: linear-gradient(to right, #e95050, #ca50e9, #29dd86); */
+    padding-left: 40px;
+    
+}
+
+.category{
+    width: 100%;
+    height: 40%;
+    padding-left: 20px;
+    background-color: inherit;
+    padding: 0px;
+    
+
+}
+
+.category ul{
+    width: inherit;
+    text-decoration: none;
+    background-color: inherit;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 50px;
+    padding-right: 50px;
+   
+    
+
+}
+
+.category ul li .link{
+    background-color: inherit;
+    padding-top: 20px;
+    padding-left: 20px;
+    font-size: large;
+    font-weight: bold;
+    background: -webkit-linear-gradient(#f60606, #e97742, #9514e4);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   font-family: "Pacifico", cursive;
+   font-weight: 400;
+   font-style: italic;
+}
+
+
+input::placeholder {
+    color: rgb(0, 0, 0);  /* Replace #yourColor with your desired color */
+          /* Ensure full opacity (optional for Firefox) */
+  }
+
+/* .other_block text{
+    background-color: inherit;
+    font-size: larger;
+    display: flex;
+    
+    
+}
+
+.combined{
+    color: aliceblue;
+    background-color: black; 
+    height: 40px;
+    display: flex;
+
+}
+
+
+.heart{
+    background-color: red; 
+} */
+
+.other_block{
+    width: 25vw;
+    background-color:inherit;
+    display: flex;
+    
+}
+
+.combined{
+    background-color:inherit;
+    width: 50%;
+    color: black;
+    padding-left: 25px;
+    padding-top: 10px;
+    
+    
+}
+
+.login-button, .signup-button, text{
+    
+    background-color: inherit; 
+    color: inherit;  
+    border: none;  
+    padding-left: 4px;
+    cursor: pointer;  
+    font-family: inherit;  
+    text-decoration: none;  
+    font-size: larger;
+    
+  }
+.heart{
+    width: 10%;
+    padding-top: 10px;
+    background-color: white;
+}
+
+
+
+.cart{
+    padding-top: 10px;
+    background-color: white;
+}
+
+
+
+
+
+
+
+.searchBar_block img{
+    background-color: violet;
+}
+
+.carousel{
+    height: 50%;
+}
+
+
+.home-footer{
+    width: inherit;
+    
+}
