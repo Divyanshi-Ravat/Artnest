@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,9 +25,12 @@ import com.artnest.artnest.dto.ProductWithImage;
 import com.artnest.artnest.entities.Product;
 import com.artnest.artnest.services.*;
 import com.artnest.artnest.services.impl.FileService;
+import org.springframework.http.MediaType;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*; // For @RequestMapping, @RequestMethod, @Produces, and @Consumes
+import java.lang.Iterable; // If
 
 
 @RestController
@@ -39,7 +43,7 @@ public class AdminController {
     @Autowired
     private ProductRepository productRepository;
     
-    @CrossOrigin("*")
+    @CrossOrigin("http://localhost:3000")
     @PostMapping("/addProduct")
     public ResponseEntity<?> createProduct(@RequestPart("productDetails") CreateProductRequest createProductRequest, @RequestPart("file") MultipartFile file) throws IOException{
 
@@ -50,7 +54,15 @@ public class AdminController {
         Product product = productService.createProduct(createProductRequest,file);
         return ResponseEntity.ok().body(product);
     }
+
+    @PostMapping("")
+    public String postMethodName(@RequestBody String entity) {
+        //TODO: process POST request
+        
+        return entity;
+    }
     
+    @CrossOrigin("*")
     @DeleteMapping("/deleteProduct/{title}")
     public String deleteProduct(@PathVariable("title") String title) {
         Product p = productRepository.findByTitle(title);
@@ -97,7 +109,13 @@ public class AdminController {
 
     //     return ResponseEntity.status(HttpStatus.OK).body(stringBuilder.toString());
     // }
-
+    
+    @CrossOrigin("*")
+    @PostMapping("/createProduct")
+    public ResponseEntity<?>  postMethodName(@RequestBody CreateProductRequest entity) {
+        Product product = productService.createProductN(entity);
+        return ResponseEntity.ok().body(product);
+    }
     
     
     

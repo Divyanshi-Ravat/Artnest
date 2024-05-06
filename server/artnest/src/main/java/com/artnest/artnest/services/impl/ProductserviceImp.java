@@ -92,6 +92,31 @@ public class ProductserviceImp implements ProductService {
         return productRepository.save(p);
 
     }
+    @Override
+    public Product createProductN(CreateProductRequest req) {
+        Category c = categoryRepository.findByName(req.getCategory());
+
+        if (c == null) {
+            Category cn = new Category();
+            cn.setName(req.getCategory());
+
+            c = categoryRepository.save(cn);
+
+        }
+
+        Product p = new Product();
+        p.setCategory(c);
+        p.setDescription(req.getDescription());
+        p.setDiscountPresent(req.getDiscountPresent());
+        p.setDiscountedPrice(req.getDiscountedPrice());
+        p.setFilePath(req.getFilePath());
+        p.setTitle(req.getTitle());
+        p.setPrice(req.getPrice());
+        p.setQuantity(req.getQuantity());
+
+        return productRepository.save(p);
+    }
+
 
     @Override
     public String deleteProduct(Long productId) {
@@ -176,4 +201,5 @@ public class ProductserviceImp implements ProductService {
         return ResponseEntity.ok().body(list);  
     }
 
+    
 }

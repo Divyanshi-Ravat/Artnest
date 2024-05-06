@@ -22,6 +22,7 @@ import io.jsonwebtoken.io.IOException;
 public interface ProductService {
 
     public Product createProduct(CreateProductRequest req, MultipartFile file)throws java.io.IOException;
+    public Product createProductN(CreateProductRequest req);
 
     public String deleteProduct(Long productId);
 

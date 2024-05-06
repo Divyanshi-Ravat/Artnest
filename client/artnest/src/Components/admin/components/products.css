@@ -92,8 +92,8 @@
   }
   
   .productsRow table tr td button { /* Style the delete button */
-    background-color: #f00; /* Set red background color */
-    color: #fff; /* Set white text color */
+    background-color: lightblue;
+    color: black;
     border: none; /* Remove default border */
     padding: 5px 10px; /* Adjust padding as desired */
     cursor: pointer; /* Indicate interactivity */

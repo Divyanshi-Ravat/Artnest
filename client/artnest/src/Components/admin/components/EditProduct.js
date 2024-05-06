@@ -11,6 +11,8 @@ import FormLabel from '@mui/material/FormLabel';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../../../redux/product/actions';
 import { Button } from '@mui/material';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const product={
     title:"",
@@ -21,11 +23,19 @@ const product={
     
     
 }
-function  AddProducts () {
+function EditProduct () {
     const dispatch = useDispatch();
     const [newProduct, setnewProduct] = useState(product)
     const [selectedRole, setSelectedRole] = useState("");
     const [file, setfile] = useState()
+    const { productTitle } = useParams();
+
+    useEffect(() => {
+     console.log(productTitle)
+    }, [])
+    
+    
+    
     const handleRoleChange = (event) => {
       setSelectedRole(event.target.value);
     };
@@ -84,7 +94,7 @@ function  AddProducts () {
     <div className='addProducts'>
       <SidebarLeft/>
       <div className='mainContent'>
-        <div className="add-heading">Add Products</div>
+        <div className="add-heading">Edit Product {productTitle}</div>
         <Divider />
 
         <div class="formbold-main-wrapper">
@@ -171,7 +181,7 @@ function  AddProducts () {
         </div>
 
         <button onClick={handlesubmit} class="formbold-btn"  >
-            Add 
+            Edit
         </button>
     
   </div>
@@ -183,4 +193,4 @@ function  AddProducts () {
   )
 }
 
-export default AddProducts
+export default EditProduct

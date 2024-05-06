@@ -7,7 +7,7 @@ const initialState = {
     switch (action.type) {
 
       case actionTypes.GET_PRODUCTS:
-        console.log("action.payload ",action.payload)
+        
         return{
           ...state,
           products: action.payload
