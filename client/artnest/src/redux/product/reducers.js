@@ -1,6 +1,7 @@
 import * as actionTypes from './actionType'
 const initialState = {
-    products: []
+    products: [],
+    categoryProducts:[]
   };
   
   const productReducer = (state = initialState, action) => {
@@ -11,6 +12,13 @@ const initialState = {
         return{
           ...state,
           products: action.payload
+        }
+
+        case actionTypes.GET_PRODUCTS_BY_CATEGORY:
+        
+        return{
+          ...state,
+          categoryProducts: action.payload
         }
   
       default:

@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.artnest.artnest.dao.CategoryRepository;
 import com.artnest.artnest.dao.ProductRepository;
 import com.artnest.artnest.dto.CreateProductRequest;
+import com.artnest.artnest.entities.Category;
 import com.artnest.artnest.entities.Product;
 import com.artnest.artnest.services.*;
 import org.slf4j.Logger; // Replace with your specific logging library
@@ -39,11 +41,26 @@ public class AllAccess {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @CrossOrigin("*")
     @GetMapping("/getAllProducts")
     public ResponseEntity<?> getAllProducts() throws IOException {
-       
+           
            return productService.getAllProducts();
+            
+            
+
+    }
+
+    @CrossOrigin("*")
+    @GetMapping("/getByCategory/{category}")
+    public ResponseEntity<?> getByCategory(@PathVariable("category") String category){
+           Category c = categoryRepository.findByName(category);
+           List<Product> list = productRepository.findAllByCategoryId(c.getId());
+           System.out.println(list);
+           return ResponseEntity.ok().body(list);
             
             
 

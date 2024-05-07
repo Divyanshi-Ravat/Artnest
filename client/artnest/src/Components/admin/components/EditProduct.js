@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import SidebarLeft from '../SidebarLeft'
 import SidebarRight from '../SidebarRight'
 import "./addproducts.css"
+import "./editProduct.css"
 import Divider from "@mui/material/Divider";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -9,29 +10,43 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { useDispatch } from 'react-redux';
-import { addProduct } from '../../../redux/product/actions';
+import { addProduct, editProduct } from '../../../redux/product/actions';
 import { Button } from '@mui/material';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 
-const product={
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+const productn={
+  id:"",
     title:"",
     price:"",
     quantity:"",
     description:"",
     category:"",
+    filePath:""
     
     
 }
 function EditProduct () {
     const dispatch = useDispatch();
-    const [newProduct, setnewProduct] = useState(product)
+    const [newProduct, setnewProduct] = useState(productn)
     const [selectedRole, setSelectedRole] = useState("");
     const [file, setfile] = useState()
-    const { productTitle } = useParams();
+    const location = useLocation();
+    const product = location.state?.product; 
+    
 
     useEffect(() => {
-     console.log(productTitle)
+      console.log(product)
+     setnewProduct({
+      id :product.id,
+      title:product.title,
+    price:product.price,
+    quantity:product.quantity,
+    description:product.description,
+    category:product.category.name,
+    filePath:product.filePath
+     })
     }, [])
     
     
@@ -41,12 +56,13 @@ function EditProduct () {
     };
 
     const handlesubmit = async () => {
+      console.log(product)
+      let imageUrl;
       if (!file) {
-        console.error("Please select a file to upload.");
-        return; // Prevent unnecessary API call if no file is selected
-      }
-  
-      const formData = new FormData();
+        imageUrl=product.filePath
+        
+      }else{
+        const formData = new FormData();
       formData.append('file', file);
       formData.append("upload_preset", "artnest");
       formData.append("cloud_name", "dppkkbval");
@@ -62,17 +78,17 @@ function EditProduct () {
         console.log(data.url); 
   
         
-        const imageUrl = data.url;
-        if (imageUrl) {
-         
-          const updatedProduct = { ...newProduct, filePath: imageUrl };
-          dispatch(addProduct(updatedProduct));
-        } else {
-          console.warn("Uploaded image URL not found in response data.");
-        }
+        imageUrl = data.url;
+        
       } catch (err) {
         console.error("Error uploading file:", err);
       }
+
+      }
+      const updatedProduct = { ...newProduct, filePath: imageUrl };
+      dispatch(editProduct(updatedProduct));
+  
+      
     };
   const onInputChange = (e) => {
     console.log(newProduct);
@@ -94,7 +110,7 @@ function EditProduct () {
     <div className='addProducts'>
       <SidebarLeft/>
       <div className='mainContent'>
-        <div className="add-heading">Edit Product {productTitle}</div>
+        <div className="add-heading">Edit Product</div>
         <Divider />
 
         <div class="formbold-main-wrapper">
@@ -167,17 +183,27 @@ function EditProduct () {
             ></textarea>
             <label for="message" class="formbold-form-label"> Description </label>
         </div>
-        
+        <div className='notFile'>
+        {!file?(
+            
 
+            <img src={product.filePath} alt=''/>
+            
+          ):
+          <></>}
+        </div>
 
 
         <div class="formbold-input-file">
+        
+
           <div class="formbold-filename-wrapper">
-            
-              Attach Painting Photo<br/>
+          
+              Want To Attach Other Photo<br/>
               <input type="file" name="file" 
                onChange={handleFile} id="upload"/>
           </div>
+          
         </div>
 
         <button onClick={handlesubmit} class="formbold-btn"  >

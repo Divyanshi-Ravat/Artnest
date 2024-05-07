@@ -8,18 +8,18 @@ import { useSelector } from "react-redux";
 import { useEffect , useState} from "react";
 import { useDispatch } from "react-redux";
 import { getAllProducts, getByCategory, getProductByTitle, getProducts } from "../../redux/product/actions";
-import axios from 'axios'
 import { Link } from "react-router-dom";
+import axios from 'axios'
 //import { getProducts } from "../../redux/product/actions";
 
 
-function AbstractArt() {
+function LandscapeArt() {
   const dispatch = useDispatch();
   const products = useSelector((state)=>state.product.categoryProducts);
 
   useEffect(() => {
     
-    const res = dispatch(getByCategory("Abstract Art"))
+    const res = dispatch(getByCategory("Landscape Art"))
    
     console.log(products)
   }, [])
@@ -59,14 +59,14 @@ function AbstractArt() {
       <div className="abstract-logo_block">
         
           <img src={logo} alt="artnest_logo" />
-          <text className="dancing-script-artnest "><Link className=".link" to="/">ArtNest</Link></text>
+          <text className="dancing-script-artnest "><Link className=".link" to="/" >ArtNest</Link></text>
         
       </div>
       <Divider/>
       <div className="quote">
-         <h3>Abstract Art</h3>
+         <h3>Landscape Art</h3>
         <br/>
-        <p>"Let your imagination dance with the colors and shapes. This art is a gateway to your inner world."</p>
+        <p>"Standing in the field, facing the mighty landscape, all the sadness and the conflicts of the soul fade away, and a feeling of peace comes over me."</p>
         <Divider/>
 
       </div>
@@ -79,4 +79,4 @@ function AbstractArt() {
   );
 }
 
-export default AbstractArt;
+export default LandscapeArt;

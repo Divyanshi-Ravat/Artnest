@@ -178,6 +178,7 @@ public class ProductserviceImp implements ProductService {
     @Override
     public ResponseEntity<?> getAllProducts() throws java.io.IOException {
         List<Product> list = (List<Product>) productRepository.findAll();
+       
         // MultiValueMap<String, Object> formData = new LinkedMultiValueMap<>();
 
         // ObjectMapper mapper = new ObjectMapper();

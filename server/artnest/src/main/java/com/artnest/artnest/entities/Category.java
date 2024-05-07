@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Objects;
 
 @Entity
@@ -29,6 +31,7 @@ public class Category {
     private String name;
     
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     @JsonBackReference
     private List<Product> imageData = new ArrayList<>();
 

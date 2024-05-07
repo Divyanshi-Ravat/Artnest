@@ -16,6 +16,12 @@ public interface ProductRepository extends CrudRepository<Product,Long> {
 
     public Product findByTitle(String name);
     
+    @Query(value="DELETE FROM product_info WHERE id = ?", nativeQuery=true)
+    public void deleteProductById(long id);
+
+    @Query(value="select * FROM product_info WHERE category_id = ?", nativeQuery=true)
+    public List<Product> findAllByCategoryId(long id);
+    
     
     
     

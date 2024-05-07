@@ -52,11 +52,13 @@ export function getProductByTitle(title){
     return async(dispatch)=>{
       try{
         const response = await axios.get("http://localhost:8080/api/all/getAllProducts")
+        
         dispatch({
           type : "GET_PRODUCTS",
           payload : response.data
 
         } 
+       
 
         )
       }
@@ -79,6 +81,27 @@ export function getProductByTitle(title){
           headers: {Authorization: `Bearer ${token}`}
         })
         console.log("result of access: ",response.data)
+        return response.data.statusCode;
+      }
+    catch(err){
+      console.log(err);
+    }
+    
+  }
+  
+  }
+
+  export function editProduct(product){
+
+    console.log("get products:", product)
+    const token = localStorage.getItem('token')
+    return async(dispatch)=>{
+      try{
+        const response = await axios.put(`http://localhost:8080/api/admin/updateProduct/${product.id}`,product,{
+
+          headers: {Authorization: `Bearer ${token}`}
+        })
+        console.log("result of access: ",response.data)
       }
     catch(err){
       console.log(err);
@@ -87,16 +110,38 @@ export function getProductByTitle(title){
   
   }
 
-  export function deleteProduct(title){
+  export function deleteProduct(id){
 
     const token = localStorage.getItem('token')
     return async(dispatch)=>{
       try{
-        const response = await axios.delete(`http://localhost:8080/api/admin/deleteProduct/${title}`,{
+        const response = await axios.delete(`http://localhost:8080/api/admin/deleteProduct/${id}`,{
 
           headers: {Authorization: `Bearer ${token}`}
         })
         console.log("deleted ",response.data)
+      }
+    catch(err){
+      console.log(err);
+    }
+  }
+  
+  }
+
+  export function getByCategory(category){
+
+    
+    return async(dispatch)=>{
+      try{
+        const res = await axios.get(`http://localhost:8080/api/all/getByCategory/${category}`)
+        
+        dispatch({
+          type : "GET_PRODUCTS_BY_CATEGORY",
+          payload : res.data
+
+        } )
+        
+        
       }
     catch(err){
       console.log(err);
@@ -153,5 +198,22 @@ export function getProductByTitle(title){
 //   }
   
 //   }
+
+export const updateProductQuantity = (title, qty) => async (dispatch) => {
+  const token = localStorage.getItem("token")
+  try {
+    
+    const response = await axios.put(`http://localhost:8080/api/admin/updateProductQuantity/${title}`,
+      {quantity:qty,
+        headers: {Authorization: `Bearer ${token}`,
+        mode: 'no-cors'}
+      }
+    )
+    console.log(response.body)
+     
+  } catch (error) {
+    console.log(error)
+  }
+};
 
 

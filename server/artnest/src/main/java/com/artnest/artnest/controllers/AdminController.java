@@ -2,6 +2,7 @@ package com.artnest.artnest.controllers;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,11 +64,21 @@ public class AdminController {
     }
     
     @CrossOrigin("*")
-    @DeleteMapping("/deleteProduct/{title}")
-    public String deleteProduct(@PathVariable("title") String title) {
-        Product p = productRepository.findByTitle(title);
-        return productService.deleteProduct(p.getId());
-      
+    @DeleteMapping("/deleteProduct/{id}")
+    public String deleteProduct(@PathVariable("id") Long id) {
+        Optional<Product> existingProduct = productRepository.findById(id);
+
+        if (existingProduct.isPresent()) {
+            Product updatedProduct = existingProduct.get(); // Safe to access properties here
+            System.out.println(updatedProduct);
+            productRepository.deleteById(id);
+
+        } else {
+           
+        }
+        //productRepository.deleteProductById(id);;
+        return "deleted Successfully";
+        
     }
     
     
@@ -85,14 +96,29 @@ public class AdminController {
 
     }
 
-    @PutMapping("/updateProduct/{title}")
-    public Product putMethodName(@PathVariable("title") String title, @RequestBody Product product) {
-       Product p = productRepository.findByTitle(title);
-       p.setDiscountPresent(product.getDiscountPresent());
-       p.setDiscountedPrice(product.getDiscountPresent());
-       p.setPrice(product.getPrice());
-       p.setQuantity(product.getQuantity());
-        return p;
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/updateProduct/{id}")
+    public ResponseEntity<?> putMethodName(@PathVariable("id") Long id, @RequestBody Product product) {
+        Optional<Product> existingProduct = productRepository.findById(id);
+
+        if (existingProduct.isPresent()) {
+            Product updatedProduct = existingProduct.get(); // Safe to access properties here
+    
+            updatedProduct.setDiscountPresent(product.getDiscountPresent());
+            updatedProduct.setDiscountedPrice(product.getDiscountedPrice());
+            updatedProduct.setPrice(product.getPrice());
+            updatedProduct.setQuantity(product.getQuantity());
+            updatedProduct.setFilePath(product.getFilePath());
+            updatedProduct.setCategory(product.getCategory());
+            updatedProduct.setDescription(product.getDescription());
+            updatedProduct.setTitle(product.getTitle()); // Update title only if allowed (see discussion below)
+    
+            productRepository.save(updatedProduct);
+            return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+        } else {
+            // Handle case where product with the given id is not found
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Or return a custom error message
+        }
     }
 
 
@@ -115,6 +141,16 @@ public class AdminController {
     public ResponseEntity<?>  postMethodName(@RequestBody CreateProductRequest entity) {
         Product product = productService.createProductN(entity);
         return ResponseEntity.ok().body(product);
+    }
+
+    @CrossOrigin("http://localhost:3000")
+    @PutMapping("/updateProductQuantity/{title}")
+    public ResponseEntity<?> putMethodName(@PathVariable String title, @RequestBody int qty) {
+        Product product = productRepository.findByTitle(title);
+        product.setQuantity(qty);
+
+        
+        return ResponseEntity.ok().body(product) ;
     }
     
     

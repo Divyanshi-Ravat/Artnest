@@ -16,6 +16,7 @@ import Home from './Components/mainPage/Home';
 import Navbar from './Components/navbar/Navbar';
 import AddProducts from './Components/admin/components/AddProducts';
 import EditProduct from './Components/admin/components/EditProduct';
+import LandscapeArt from './Components/categories/LandscapeArt';
 
 
 function App() {
@@ -28,13 +29,14 @@ function App() {
       <Routes>
       <Route path="/" element={<Home/>}/>
       <Route path="/abstractArt" element={<AbstractArt/>}/>
+      <Route path="/landscapeart" element={<LandscapeArt/>}/>
       <Route path="/contact" element={<Contact/>}/>
       <Route path="/admin" element={< Admin/>}/>
       <Route path="/admin/home" element={<AdminHome/>}/>
     <Route path="/admin/products" element={<Products/>}/>
     <Route path="/admin/users" element={<Users/>}/>
     <Route path="/admin/addProduct" element={<AddProducts/>}/>
-    <Route path="/admin/editProduct/:title" element={<EditProduct/>}/>
+    <Route path="/admin/editProduct" element={<EditProduct/>}/>
       </Routes>
         
       </BrowserRouter>

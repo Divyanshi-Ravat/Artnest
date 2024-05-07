@@ -14,6 +14,14 @@ import { useNavigate } from "react-router-dom";
 import Banner from "./Banner";
 import Carousel from "./Carousel";
 import "./home.css"
+import selftaught from '../../assets/self-taught.jpeg'
+import passion from '../../assets/passion.jpg'
+import i1 from '../../assets/Abstract art.jpeg'
+import i2 from '../../assets/admin_pic.jpg'
+import i3 from '../../assets/artnest_logo.png'
+import i5  from '../../assets/ColorfulGirl.png'
+import i6 from '../../assets/Diwali.png'
+import i7 from '../../assets/Eagle.png'
 
 
 
@@ -50,6 +58,8 @@ function Home() {
           <div className="category">
             <ul >
               <li><Link to="/abstractArt" className="link" >Abstract Art</Link></li>
+              <li><Link to="/landscapeart" className="link" >Landscape Art</Link></li>
+              <li><Link to="/abstractArt" className="link" >Traditional Art</Link></li>
               <li>Modern Art</li>
               <li>Dirty Art</li>
               <li>Comtempory Art</li>
@@ -89,6 +99,92 @@ function Home() {
       <div className="carousel">
        <Banner/> 
       </div>
+      <div className="divider">
+        <h1>Gift To Your Love Ones</h1>
+
+      </div>
+      <div className="grids">
+        <div className="first-row">
+          <div className="first-text">
+          "Formal education can only take you so far. The artist must find a way to keep learning, to keep the creative wellspring flowing. For me, self-discovery became an ongoing process."
+          </div>
+          <div className="first-photo">
+            <img src={selftaught} alt=""/>
+          </div>
+        </div>
+        <div className="divider-two">
+         <p>engage your self and go on doing painting and have a joy</p>
+
+      </div>
+        <div className="second-row">
+        <div className="second-text">
+        <img src={passion} alt=""/>
+          </div>
+          <div className="second-photo">
+          "Art washes away from the soul the dust of everyday life.Nobody sees a flower the way I see a flower. I see its mystery, its beauty and its struggle to exist against all odds"
+
+          </div>
+         
+        </div>
+        
+      </div>
+      <div className="divider-two">
+         <p>recommended paintings</p>
+
+      </div>
+      <div class="grid">
+  <div class="box blue wide">
+    <img src={passion} alt=""/>
+  </div>
+  <div class="box green square">
+  <img src={i1} alt=""/>
+  </div>
+  <div class="box green square">
+  <img src={passion} alt=""/>
+  </div>
+  <div class="box green square">
+  <img src={i2} alt=""/>
+  </div>
+  <div class="box green tall">
+  <img src={passion} alt=""/>
+  </div>
+  <div class="box red square">
+  <img src={i3} alt=""/>
+  </div>
+  <div class="box green square">
+  <img src={passion} alt=""/>
+  </div>
+  <div class="box red wide">
+  <img src="" alt=""/>
+  </div>
+  <div class="box blue square">
+  <img src={passion} alt=""/>
+  </div>
+  <div class="box blue tall">
+  <img src={i5} alt=""/>
+  </div>
+  <div class="box red wide">
+  <img src={passion} alt=""/>
+  </div>
+  <div class="box green wide">
+  <img src={i6} alt=""/>
+  </div>
+  <div class="box red square">
+  <img src={passion} alt=""/>
+  </div>
+  <div class="box red wide">
+  <img src={i2} alt=""/>
+  </div>
+  <div class="box green square">
+  <img src={passion} alt=""/>
+  </div>
+  <div class="box green square">
+  <img src={i1} alt=""/>
+  </div>
+  <div class="box green square">
+  <img src={passion} alt=""/>
+  </div>
+</div>
       <div className="home-footer">
         
       </div>

@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { addProduct } from '../../../redux/product/actions';
 import { Button } from '@mui/material';
 
+
 const product={
     title:"",
     price:"",
@@ -29,6 +30,7 @@ function  AddProducts () {
     const handleRoleChange = (event) => {
       setSelectedRole(event.target.value);
     };
+    
 
     const handlesubmit = async () => {
       if (!file) {
@@ -56,7 +58,10 @@ function  AddProducts () {
         if (imageUrl) {
          
           const updatedProduct = { ...newProduct, filePath: imageUrl };
-          dispatch(addProduct(updatedProduct));
+          const resp = dispatch(addProduct(updatedProduct));
+          console.log(resp)
+         
+          
         } else {
           console.warn("Uploaded image URL not found in response data.");
         }
