@@ -10,15 +10,20 @@ import { useDispatch } from "react-redux";
 import { getAllProducts, getByCategory, getProductByTitle, getProducts } from "../../redux/product/actions";
 import { Link } from "react-router-dom";
 import axios from 'axios'
+import { checkingLike, updateDislikes, updateLikes } from "../../redux/product/actions";
+import { getUserId } from "../../redux/user/actions";
 //import { getProducts } from "../../redux/product/actions";
 
 
 function LandscapeArt() {
   const dispatch = useDispatch();
   const products = useSelector((state)=>state.product.categoryProducts);
+  const active_user =useSelector((state)=>state.user.active_user)
+  const user_id = useSelector((state)=>state.user.user_id)
+  
 
   useEffect(() => {
-    
+    dispatch(getUserId(active_user));
     const res = dispatch(getByCategory("Landscape Art"))
    
     console.log(products)
@@ -38,14 +43,31 @@ function LandscapeArt() {
 
   function card_object(val){
     
+    console.log("user_id",user_id)
+    const usersLiked = val.usersLiked.slice(); // Create a copy to avoid mutation (optional)
+
+    console.log("users",usersLiked)
+    
+   const specificProduct = usersLiked.find((product) => product === user_id);
+   console.log("specificProduct",specificProduct)
+   let valb;
+   if(specificProduct===user_id){
+    valb = true;
+   }else{
+    valb=false;
+   }
     return(
       <>
       
       <Card className="card"
+      liked ={valb}
+      id ={val.id}
       imgsrc={val.filePath}
       title={val.title}
       category={val.category.name}
       price={val.price}
+
+
     />
       </>
      

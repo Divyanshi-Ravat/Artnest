@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.artnest.artnest.dao.ProductRepository;
 import com.artnest.artnest.dto.CreateProductRequest;
 import com.artnest.artnest.dto.ProductWithImage;
+import com.artnest.artnest.entities.Category;
 import com.artnest.artnest.entities.Product;
 import com.artnest.artnest.services.*;
 import com.artnest.artnest.services.impl.FileService;
@@ -65,19 +66,26 @@ public class AdminController {
     
     @CrossOrigin("*")
     @DeleteMapping("/deleteProduct/{id}")
-    public String deleteProduct(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id) {
         Optional<Product> existingProduct = productRepository.findById(id);
 
         if (existingProduct.isPresent()) {
             Product updatedProduct = existingProduct.get(); // Safe to access properties here
             System.out.println(updatedProduct);
+            Category c = updatedProduct.getCategory();
+            Long category_id = c.getId();
+            List<Product> list = productRepository.findAllByCategoryId(category_id);
+            if(!list.isEmpty()){
+                updatedProduct.setCategory(null);
+            }
             productRepository.deleteById(id);
+            
 
         } else {
            
         }
         //productRepository.deleteProductById(id);;
-        return "deleted Successfully";
+        return ResponseEntity.ok().body(null);
         
     }
     

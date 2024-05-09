@@ -90,6 +90,78 @@ export function getProductByTitle(title){
   }
   
   }
+  //////////////////////////////////////////////////////////////////////////
+  export function updateLikes(updatedLike){
+    console.log(updatedLike)
+    const token = localStorage.getItem('token')
+    console.log(token)
+    const {product_id,email} =updatedLike;
+    console.log(product_id,email)
+    
+    return async(dispatch)=>{
+      try{
+        const response = await axios.post("http://localhost:8080/api/user/update-likes",updatedLike,{
+          headers: {Authorization: `Bearer ${token}`,
+        "Content-Type":"application/json"}
+        })
+        console.log("result of access: ",response.data)
+        return response.data.statusCode;
+      }
+    catch(err){
+      console.log(err);
+    }
+    
+  }
+  
+  }
+  ///////////////////////////////////////////////////////////////////////////
+  export function updateDislikes(updatedDislike){
+    
+    const token = localStorage.getItem('token')
+    console.log(token)
+    
+    
+    return async(dispatch)=>{
+      try{
+        const response = await axios.post("http://localhost:8080/api/user/update-dislikes",updatedDislike,{
+          headers: {Authorization: `Bearer ${token}`,
+        "Content-Type":"application/json"}
+        })
+        console.log("result of access: ",response.data)
+        return response.data.statusCode;
+      }
+    catch(err){
+      console.log(err);
+    }
+    
+  }
+  
+  }
+  ////////////////////////////////////////////////////////////
+  export function checkingLike(checkLike){
+    
+    const token = localStorage.getItem('token')
+    console.log(token)
+    const {product_id,email} =checkLike;
+    console.log(product_id,email)
+    
+    
+    return async(dispatch)=>{
+      try{
+        const response = await axios.post("http://localhost:8080/api/user/isLiked",checkLike,{
+          headers: {Authorization: `Bearer ${token}`,
+        "Content-Type":"application/json"}
+        })
+        console.log("result of access: ",response.data)
+        return response.data;
+      }
+    catch(err){
+      console.log(err);
+    }
+    
+  }
+  
+  }
 
   export function editProduct(product){
 
@@ -134,7 +206,7 @@ export function getProductByTitle(title){
     return async(dispatch)=>{
       try{
         const res = await axios.get(`http://localhost:8080/api/all/getByCategory/${category}`)
-        
+        console.log("categoryaction ",res.data);
         dispatch({
           type : "GET_PRODUCTS_BY_CATEGORY",
           payload : res.data
@@ -149,6 +221,8 @@ export function getProductByTitle(title){
   }
   
   }
+
+  
 
 
 

@@ -98,9 +98,11 @@ export function handleSigninApi(login){
       const { data: { token, refreshtoken } } = result;
       console.log(token+" "+refreshtoken)
       //dispatch(storeTokenToLocalStorage(token))
+      
       dispatch(activeUser(email));
       //storeTokenToLocalStorage(token);
       localStorage.setItem("token",token);
+      
     }
   catch(err){
     console.log(err);
@@ -124,6 +126,26 @@ export function checkUserAccess(token){
     console.log(err);
   }
   return result.status;
+}
+
+}
+
+export function getUserId(email){
+
+    
+  return async(dispatch)=>{
+    try{
+      const res = await axios.get(`http://localhost:8080/api/all/getUserId/${email}`)
+      console.log("userId ",res.data);
+      dispatch({
+        type : "USER_ID",
+        payload : res.data
+      })
+      return res.data;
+    }
+  catch(err){
+    console.log(err);
+  }
 }
 
 }

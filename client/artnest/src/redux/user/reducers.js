@@ -19,7 +19,8 @@ const initialState = {
 
   user_access: false,
 
-  products:[]
+  products:[],
+  user_id:""
 };
 
 const userReducer = (state = initialState, action) => {
@@ -71,6 +72,13 @@ const userReducer = (state = initialState, action) => {
           user_access: true
 
         }
+      
+      case actionTypes.USER_ID:
+          return{
+            ...state.user_id,
+            user_id: action.payload
+  
+          }
 
     default:
       return state; // Return unchanged state for unknown actions

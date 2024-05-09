@@ -15,7 +15,7 @@ const initialState = {
         }
 
         case actionTypes.GET_PRODUCTS_BY_CATEGORY:
-        
+        console.log("pay",action.payload)
         return{
           ...state,
           categoryProducts: action.payload

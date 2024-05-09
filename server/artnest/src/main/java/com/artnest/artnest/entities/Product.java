@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -35,11 +36,13 @@ public class Product {
     private String filePath;
 
 
-    @OneToMany(mappedBy = "image", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Like> likes = new ArrayList<>();
 
 
     @OneToMany(mappedBy = "image",cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Comment> comments = new ArrayList<>();
     
 

@@ -58,6 +58,12 @@
     grid-gap: 70px;
 
 }
-.card{
+.abstract-card{
   background-color: white;
+}
+
+.like-btn{
+  border: none;
+  display: flex;
+  width: 30px;
 }

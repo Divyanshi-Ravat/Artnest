@@ -51,6 +51,7 @@ function Products() {
     const { title } = p;
     console.log(id);
     dispatch(deleteProduct(id));
+    dispatch(getProducts())
   };
 
   const handleEdit=(product)=>{

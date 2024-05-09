@@ -1,5 +1,6 @@
 package com.artnest.artnest.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,6 +14,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="like_info")
 @Data
@@ -23,13 +26,26 @@ public class Like {
     @GeneratedValue(strategy =GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userid")
+    @JsonManagedReference
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name ="imageid")
-    private Product image;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name ="product_id")
+    @JsonManagedReference
+    private Product product;
 
     private LocalDateTime createdAt;
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            // ", user='" + getUser() + "'" +
+            // ", product='" + getProduct() + "'" +
+            ", createdAt='" + getCreatedAt() + "'" +
+            "}";
+    }
+
 }

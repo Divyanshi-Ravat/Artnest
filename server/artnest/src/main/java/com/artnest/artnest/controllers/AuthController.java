@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.artnest.artnest.dto.RefreshTokenRequest;
 import com.artnest.artnest.dto.SignInRequest;
 import com.artnest.artnest.dto.SignUpRequest;
+import com.artnest.artnest.dao.UserRepository;
 import com.artnest.artnest.entities.User;
 import com.artnest.artnest.services.AuthenticationService;
 
@@ -34,6 +35,9 @@ public class AuthController {
 
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    private UserRepository userRepository;
     
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -61,6 +65,9 @@ public class AuthController {
 
         try{
             var jwtAuthResponse = authenticationService.signIn(signInRequest);
+            // String email = signInRequest.getEmail();
+            // Optional<User> u = userRepository.findByEmail(email);
+            // User user = u.get();
             return ResponseEntity.ok(jwtAuthResponse);
         }
         catch(Exception e){

@@ -7,5 +7,6 @@ public class JwtAuthResponse {
 
     private String token;
     private String refreshtoken;
+    
 
 }
