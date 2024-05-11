@@ -98,6 +98,18 @@
 			<artifactId>cloudinary-http44</artifactId>
 			<version>1.36.0</version>
 		</dependency>
+	    <!-- https://mvnrepository.com/artifact/com.razorpay/razorpay-java -->
+<dependency>
+    <groupId>com.razorpay</groupId>
+    <artifactId>razorpay-java</artifactId>
+    <version>1.4.5</version>
+</dependency>
+
+
+
+
+
+
 		
 	</dependencies>
 

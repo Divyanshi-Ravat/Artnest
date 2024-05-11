@@ -1,7 +1,11 @@
+import Wishlist from '../../Components/wishlist/Wishlist';
 import * as actionTypes from './actionType'
 const initialState = {
     products: [],
-    categoryProducts:[]
+    categoryProducts:[],
+    wishlistProducts:[],
+    totalPrice:"",
+    orderStatus:[]
   };
   
   const productReducer = (state = initialState, action) => {
@@ -15,10 +19,30 @@ const initialState = {
         }
 
         case actionTypes.GET_PRODUCTS_BY_CATEGORY:
-        console.log("pay",action.payload)
+   
         return{
           ...state,
           categoryProducts: action.payload
+        }
+
+        case actionTypes.GET_WISHLIST_PRODUCTS:
+ 
+        return{
+          ...state,
+          wishlistProducts: action.payload
+        }
+
+        case actionTypes.GET_Total_PRICE:
+
+        return{
+          ...state,
+          totalPrice: action.payload
+        }
+        case actionTypes.ORDER_STATUS:
+
+        return{
+          ...state,
+          orderStatus: action.payload
         }
   
       default:

@@ -6,15 +6,16 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { checkingLike,  updateDislikes, updateLikes } from "../../redux/product/actions";
+import { addToWishlist, checkingLike,  updateDislikes, updateLikes } from "../../redux/product/actions";
 import { getUserId } from "../../redux/user/actions";
+import Cookies from "js-cookie";
 const dataforlikeanddislike = {
   email: "",
   product_id: "",
 };
 function Card(props) {
   const [isLiked, setIsLiked] = useState(props.liked); 
-  const active_user =useSelector((state)=>state.user.active_user)
+  const active_user =Cookies.get("active_user")
   const product_id = props.id;
   const user_id = useSelector((state)=>state.user.user_id)
   let specificProduct
@@ -23,7 +24,7 @@ function Card(props) {
   const [data, setdata] = useState(dataforlikeanddislike);
 
   useEffect(() => {
-   
+   console.log("active_user_card    ",active_user);
     
     
    
@@ -92,6 +93,17 @@ function Card(props) {
     }
     
   };
+
+  const handleWishlist=()=>{
+    const dataToSend=
+        {
+    
+          product_id:product_id,
+          email:active_user
+        }
+          
+    dispatch(addToWishlist(dataToSend))
+  }
   return (
     <>
       <div className="card">
@@ -100,7 +112,8 @@ function Card(props) {
           <div className="card_title">{props.title} </div>
           <div className="card_category">{props.category}</div>
           <div className="card_price">{props.price}</div>
-          <div className="card_like_comment">
+          {active_user?(
+            <div className="card_like_comment">
             <button className="like-btn" onClick={handleLikeClick}>
               {
                 isLiked?(
@@ -122,10 +135,23 @@ function Card(props) {
             
 
             </button>
+            <button onClick={handleWishlist} >wishlist</button>
              
              <ChatBubbleIcon/>
+            
+             
+
+            
+             
 
           </div>
+            
+
+          ):(
+            <></>
+          )}
+         
+          
         </div>
       </div>
     </>

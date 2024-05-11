@@ -1,6 +1,7 @@
 
 import * as actionTypes from './actionType'
 import axios from 'axios'
+import Cookies from 'js-cookie';
 
 
 const BaseURL = "http://localhost:8080/api/auth"
@@ -32,21 +33,18 @@ export const addUser=(user)=>{
 }
 
 export const storeTokenToLocalStorage=(data)=>{
-  localStorage.setItem("token",data);
+  Cookies.set('authToken', data, {
+    expires: 7, // Set expiration in days (adjust as needed)
+    secure: true, // Only send over HTTPS
+    sameSite: 'strict' // Mitigate cross-site scripting risks
+  });
   return{
     type : actionTypes.STORE_TOKEN,
     payload : data
   }
 }
 
-export const activeUser=(data)=>{
-  console.log("active user action is called" + data)
-   return{
-    type:actionTypes.ACTIVE_USER,
-    payload:data
 
-   }
-}
 
 export function isExist(data){
     return async (dispatch)=>{
@@ -99,9 +97,24 @@ export function handleSigninApi(login){
       console.log(token+" "+refreshtoken)
       //dispatch(storeTokenToLocalStorage(token))
       
-      dispatch(activeUser(email));
-      //storeTokenToLocalStorage(token);
-      localStorage.setItem("token",token);
+      if(token){
+        Cookies.set('active_user', email, { secure: true, sameSite: 'strict' });
+        dispatch({
+          type : "ACTIVE_USER",
+          payload : email
+        })
+        Cookies.set('authToken', token, {
+          expires: 7, // Set expiration in days (adjust as needed)
+          secure: true, // Only send over HTTPS
+          sameSite: 'strict' // Mitigate cross-site scripting risks
+        });
+        dispatch(getUserId(email))
+        console.log("token" ,Cookies.get('authToken'))
+      }else{
+        console.log("no token received")
+      }
+      
+      
       
     }
   catch(err){
@@ -141,7 +154,7 @@ export function getUserId(email){
         type : "USER_ID",
         payload : res.data
       })
-      return res.data;
+      
     }
   catch(err){
     console.log(err);

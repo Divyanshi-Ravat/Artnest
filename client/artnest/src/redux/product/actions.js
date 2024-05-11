@@ -1,6 +1,9 @@
 
 import axios from 'axios'
+import Cookies from 'js-cookie';
+//import Razorpay from 'razorpay'
 import { FIND_PRODUCT, GET_PRODUCTS } from './actionType'
+
 axios.interceptors.request.use(
   (config) => {
     if (config.data instanceof FormData) {
@@ -14,20 +17,6 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-function generateUniqueBoundaryString() {
-  // Using crypto (if available)
-  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
-    return crypto.randomUUID();
-  }
-
-  // Simple fallback
-  let boundary = '----';
-  for (let i = 0; i < 24; i++) {
-    boundary += Math.floor(Math.random() * 16).toString(16);
-  }
-  return boundary;
-}
-
 
 
 export function getProductByTitle(title){
@@ -73,7 +62,7 @@ export function getProductByTitle(title){
   export function addProduct(product){
 
     console.log("get products:", product)
-    const token = localStorage.getItem('token')
+    const token = Cookies.get('authToken');
     return async(dispatch)=>{
       try{
         const response = await axios.post("http://localhost:8080/api/admin/createProduct",product,{
@@ -93,7 +82,7 @@ export function getProductByTitle(title){
   //////////////////////////////////////////////////////////////////////////
   export function updateLikes(updatedLike){
     console.log(updatedLike)
-    const token = localStorage.getItem('token')
+    const token = Cookies.get('authToken');
     console.log(token)
     const {product_id,email} =updatedLike;
     console.log(product_id,email)
@@ -117,7 +106,7 @@ export function getProductByTitle(title){
   ///////////////////////////////////////////////////////////////////////////
   export function updateDislikes(updatedDislike){
     
-    const token = localStorage.getItem('token')
+    const token = Cookies.get('authToken');
     console.log(token)
     
     
@@ -140,7 +129,7 @@ export function getProductByTitle(title){
   ////////////////////////////////////////////////////////////
   export function checkingLike(checkLike){
     
-    const token = localStorage.getItem('token')
+    const token = Cookies.get('authToken');
     console.log(token)
     const {product_id,email} =checkLike;
     console.log(product_id,email)
@@ -152,7 +141,7 @@ export function getProductByTitle(title){
           headers: {Authorization: `Bearer ${token}`,
         "Content-Type":"application/json"}
         })
-        console.log("result of access: ",response.data)
+      
         return response.data;
       }
     catch(err){
@@ -165,15 +154,15 @@ export function getProductByTitle(title){
 
   export function editProduct(product){
 
-    console.log("get products:", product)
-    const token = localStorage.getItem('token')
+ 
+    const token = Cookies.get('authToken');
     return async(dispatch)=>{
       try{
         const response = await axios.put(`http://localhost:8080/api/admin/updateProduct/${product.id}`,product,{
 
           headers: {Authorization: `Bearer ${token}`}
         })
-        console.log("result of access: ",response.data)
+     
       }
     catch(err){
       console.log(err);
@@ -184,14 +173,14 @@ export function getProductByTitle(title){
 
   export function deleteProduct(id){
 
-    const token = localStorage.getItem('token')
+    const token = Cookies.get('authToken');
     return async(dispatch)=>{
       try{
         const response = await axios.delete(`http://localhost:8080/api/admin/deleteProduct/${id}`,{
 
           headers: {Authorization: `Bearer ${token}`}
         })
-        console.log("deleted ",response.data)
+      
       }
     catch(err){
       console.log(err);
@@ -206,7 +195,7 @@ export function getProductByTitle(title){
     return async(dispatch)=>{
       try{
         const res = await axios.get(`http://localhost:8080/api/all/getByCategory/${category}`)
-        console.log("categoryaction ",res.data);
+      
         dispatch({
           type : "GET_PRODUCTS_BY_CATEGORY",
           payload : res.data
@@ -274,7 +263,7 @@ export function getProductByTitle(title){
 //   }
 
 export const updateProductQuantity = (title, qty) => async (dispatch) => {
-  const token = localStorage.getItem("token")
+  const token = Cookies.get('authToken');
   try {
     
     const response = await axios.put(`http://localhost:8080/api/admin/updateProductQuantity/${title}`,
@@ -283,11 +272,140 @@ export const updateProductQuantity = (title, qty) => async (dispatch) => {
         mode: 'no-cors'}
       }
     )
-    console.log(response.body)
+    
      
   } catch (error) {
     console.log(error)
   }
 };
 
+export function addToWishlist(data){
+
+  const token = Cookies.get('authToken');
+  
+  const {product_id,email} =data;
+ 
+  
+  return async(dispatch)=>{
+    try{
+      const response = await axios.post("http://localhost:8080/api/user/addToWishlist",data,{
+        headers: {Authorization: `Bearer ${token}`,
+      "Content-Type":"application/json"}
+      })
+     
+      return response.data.statusCode;
+    }
+  catch(err){
+    console.log(err);
+  }
+  
+}
+
+}
+
+export function deleteFromWishlist(data){
+    
+  const token = Cookies.get('authToken');
+
+  
+  
+  return async(dispatch)=>{
+    try{
+      const response = await axios.post("http://localhost:8080/api/user/deleteFromWishlist",data,{
+        headers: {Authorization: `Bearer ${token}`,
+      "Content-Type":"application/json"}
+      })
+    
+      return response.data.statusCode;
+    }
+  catch(err){
+    console.log(err);
+  }
+  
+}
+}
+
+export function getAllWishlistProducts(user){
+    
+  const token = Cookies.get('authToken');
+  
+  
+  
+  return async(dispatch)=>{
+    try{
+      const response = await axios.get(`http://localhost:8080/api/user/getAllWishlistProducts/${user}`,{
+        headers: {Authorization: `Bearer ${token}`,
+      "Content-Type":"application/json"}
+      })
+     
+      dispatch({
+        type:"GET_WISHLIST_PRODUCTS",
+        payload: response.data
+      })
+      return response.data.statusCode;
+    }
+  catch(err){
+    console.log(err);
+  }
+  
+}
+
+}
+
+export function getTotalPrice(user){
+    
+  const token = Cookies.get('authToken');
+ 
+  
+  
+  return async(dispatch)=>{
+    try{
+      const response = await axios.get(`http://localhost:8080/api/user/getTotalPrice`,{
+        headers: {Authorization: `Bearer ${token}`,
+      "Content-Type":"application/json"}
+      })
+     
+      dispatch({
+        type:"GET_Total_PRICE",
+        payload: response.data
+      })
+      return response.data.statusCode;
+    }
+  catch(err){
+    console.log(err);
+  }
+  
+}
+
+}
+export function createOrder(amt){
+    
+  const token = Cookies.get('authToken');
+ 
+  
+  
+  return async(dispatch)=>{
+    try{
+      const response = await axios.post(
+        `http://localhost:8080/api/user/createOrder`,
+        {amt:amt},
+        {
+          headers: {Authorization: `Bearer ${token}`, 
+          "Content-Type": 'application/json'},
+        }
+      );
+      dispatch({
+        type:"ORDER_STATUS",
+        payload:response.data
+      })
+     
+     
+    }
+  catch(err){
+    console.log(err);
+  }
+  
+}
+
+}
 

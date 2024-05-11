@@ -69,6 +69,17 @@ public class User implements UserDetails {
     //we will say that the user in like table will contain the join data 
     private List<Like> like = new ArrayList<>();
     
+
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference
+    //we will say that the user in like table will contain the join data 
+    private List<Wishlist> wishlist = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference
+    //we will say that the user in like table will contain the join data 
+    private List<Order> order = new ArrayList<>();
+    
     @OneToMany(mappedBy = "user")
     @JsonBackReference
     private List<Comment> comment = new ArrayList<>();

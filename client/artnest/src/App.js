@@ -17,6 +17,8 @@ import Navbar from './Components/navbar/Navbar';
 import AddProducts from './Components/admin/components/AddProducts';
 import EditProduct from './Components/admin/components/EditProduct';
 import LandscapeArt from './Components/categories/LandscapeArt';
+import Wishlist from './Components/wishlist/Wishlist';
+import Order from './Components/order/Order';
 
 
 function App() {
@@ -37,6 +39,8 @@ function App() {
     <Route path="/admin/users" element={<Users/>}/>
     <Route path="/admin/addProduct" element={<AddProducts/>}/>
     <Route path="/admin/editProduct" element={<EditProduct/>}/>
+    <Route path="/user/wishlist" element={<Wishlist/>}/>
+    <Route path="/user/order" element={<Order/>}/>
       </Routes>
         
       </BrowserRouter>

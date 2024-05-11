@@ -51,5 +51,15 @@ public class Product {
     @JoinColumn(name = "categoryId")
     @JsonManagedReference
     private Category category;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Wishlist> wishlist = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Order> order = new ArrayList<>();
+
+
     
 }

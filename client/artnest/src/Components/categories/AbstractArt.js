@@ -11,13 +11,14 @@ import { getAllProducts, getByCategory, getProductByTitle, getProducts } from ".
 import axios from 'axios'
 import { Link } from "react-router-dom";
 import { getUserId } from "../../redux/user/actions";
+import Cookies from "js-cookie";
 //import { getProducts } from "../../redux/product/actions";
 
 
 function AbstractArt() {
   const dispatch = useDispatch();
   const products = useSelector((state)=>state.product.categoryProducts);
-  const active_user =useSelector((state)=>state.user.active_user)
+  const active_user =Cookies.get("active_user")
   const user_id = useSelector((state)=>state.user.user_id)
 
   useEffect(() => {

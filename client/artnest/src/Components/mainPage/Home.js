@@ -22,23 +22,31 @@ import i3 from '../../assets/artnest_logo.png'
 import i5  from '../../assets/ColorfulGirl.png'
 import i6 from '../../assets/Diwali.png'
 import i7 from '../../assets/Eagle.png'
+import Cookies from 'js-cookie';
 
 
 
 function Home() {
   const [open, setopen] = useState(false);
   const dispatch = useDispatch();
-  const active_user = useSelector((state) => state.user.active_user);
+  const active_user_cookie = Cookies.get("active_user");
+  const active_user = useSelector((state)=>state.user.active_user)
   const token = useSelector((state) => state.user.token);
   const navigate = useNavigate();
+  
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    dispatch(activeUser(""));
+    Cookies.remove('authToken');
+    Cookies.remove('active_user')
+    dispatch({
+      type:"ACTIVE_USER",
+      payload:""
+    })
     navigate("/");
   };
   useEffect(() => {
-    console.log("active_user" + active_user);
-  }, [active_user]);
+   
+    console.log("active_user cookie" + active_user);
+  },[]);
 
   const openDialog = () => {
     setopen(true);
@@ -68,7 +76,7 @@ function Home() {
         </div>
         <div className="other_block">
           <div className="combined">
-            {active_user ? (
+            {active_user||active_user_cookie ? (
               <button className="login-button" onClick={() => handleLogout()}>
                 LogOut
               </button>
@@ -87,12 +95,14 @@ function Home() {
           </div>
 
           <div className="heart">
-            <FavoriteBorderOutlinedIcon style={{ background: "white" }} />
+          <Link to="/user/wishlist"><FavoriteBorderOutlinedIcon style={{ background: "white" }} /></Link>
+            
           </div>
           <div className="cart">
             <ShoppingCartIcon style={{ background: "white" }} />
           </div>
           <Link to="/admin">admin</Link>
+          
         </div>
       </div>
    
